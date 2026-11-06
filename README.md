@@ -49,7 +49,7 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 | Fayl | Vazifasi |
 |---|---|
 | `app/main.py` | Kirish nuqtasi: baza → do'kon andozasi → AI → bot (polling/webhook) + WebApp API |
-| `app/config.py` | Env o'zgaruvchilari (yagona eshik). `postgresql://` → async drayver |
+| `app/config.py` | Env o'zgaruvchilari (yagona eshik). `postgresql://` → async drayver; `DATABASE_URL` tozalanadi (qo'shtirnoq/bo'sh joy), noto'g'ri bo'lsa aniq sabab (parolsiz) |
 | `app/constants.py` | Barcha limitlar, chegaralar, rollar, turlar, holatlar (magic number yo'q) |
 | `app/texts.py` | Xato xabarlari — bot va WebApp uchun **umumiy** |
 | `app/logging_setup.py` | Log formati |
@@ -149,7 +149,7 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 
 ### Testlar (`tests/`)
 `test_text_normalize`, `test_auth`, `test_ai_parsing`, `test_layout_and_search`,
-`test_recognition_and_stock`, `test_visual_and_misc`, `test_api`, `test_bot_flow` — 41 ta test.
+`test_recognition_and_stock`, `test_visual_and_misc`, `test_api`, `test_bot_flow`, `test_config` — 49 ta test.
 
 ---
 
