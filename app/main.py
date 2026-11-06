@@ -8,7 +8,7 @@ from fastapi import FastAPI
 
 from app.ai.factory import build_ai_provider
 from app.api.app import create_app
-from app.bot.setup import build_bot, build_dispatcher
+from app.bot.setup import build_bot, build_dispatcher, configure_menu_button
 from app.bot.webhook import WEBHOOK_PATH, build_webhook_router
 from app.config import Settings, get_settings
 from app.db.session import dispose_engine, init_engine, session_scope
@@ -40,6 +40,8 @@ def build_application(settings: Settings) -> FastAPI:
             logger.info("Bot polling rejimida ishga tushdi")
         else:
             logger.warning("BOT_TOKEN berilmagan — faqat WebApp API ishlaydi")
+        if bot:
+            await configure_menu_button(bot, settings.public_url)
         try:
             yield
         finally:

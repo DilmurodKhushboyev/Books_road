@@ -2,8 +2,6 @@
 import { api } from "./api.js";
 import { el, haptic, openSheet, showError, withLoader } from "./ui.js";
 
-let state = { layout: [], canEdit: false };
-
 function shelfTile(shelf) {
   const arrow = shelf.side === "front" ? "⬆️" : "⬇️";
   return el("button", {
@@ -24,8 +22,7 @@ function island(section) {
   return el("div", { class: "island" }, el("div", { class: "island-name", text: section.name }), body);
 }
 
-export function renderMap(layout, canEdit) {
-  state = { layout, canEdit };
+export function renderMap(layout) {
   document.getElementById("store-map").replaceChildren(...layout.map(island));
 }
 
@@ -33,7 +30,7 @@ function levelBlock(level, focus) {
   const items = level.items.length
     ? level.items.map((item) => el("div", { class: "level-item" },
         el("span", { text: item.author ? `${item.title} — ${item.author}` : item.title }),
-        el("span", { class: `badge ${item.in_stock ? "ok" : "bad"}`, text: item.in_stock ? `✅ ${item.quantity}` : "❌" })))
+        el("span", { class: `badge ${item.in_stock ? "ok" : "bad"}`, text: item.in_stock ? `${item.quantity} dona` : "Qolmagan" })))
     : [el("div", { class: "muted", text: "Bo'sh" })];
   const block = el("div", { class: "level", id: `level-${level.level}` },
     el("div", { class: "level-title", text: `${level.level}-qator${focus ? " 👈" : ""}` }), ...items);
@@ -45,7 +42,7 @@ export async function openShelf(shelfId, focusLevel = null) {
     haptic();
     const shelf = await withLoader("Javon yuklanmoqda...", () => api(`/api/shelves/${shelfId}`));
     const content = el("div", {},
-      el("div", { class: "card-title", text: `🗄 ${shelf.code} javon (${shelf.side_label})` }),
+      el("h2", { class: "sheet-title", text: `🗄 ${shelf.code} javon · ${shelf.side_label}` }),
       el("div", { class: "muted", text: "1-qator — eng yuqori qator" }),
       ...shelf.levels.map((lvl) => levelBlock(lvl, lvl.level === focusLevel)));
     openSheet(content);

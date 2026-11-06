@@ -43,9 +43,12 @@ async def btn_search(message: Message, state: FSMContext) -> None:
     await message.answer(texts.ASK_QUERY)
 
 
-async def btn_webapp_fallback(message: Message) -> None:
-    """WebApp URL sozlanmagan bo'lsa tugma oddiy matn bo'lib keladi."""
-    await message.answer(texts.WEBAPP_NOT_CONFIGURED)
+async def btn_webapp(message: Message, settings: Settings) -> None:
+    """WebApp'ni inline tugma bilan ochamiz (reply-tugmada initData kelmaydi)."""
+    if not settings.public_url:
+        await message.answer(texts.WEBAPP_NOT_CONFIGURED)
+        return
+    await message.answer(texts.OPEN_WEBAPP, reply_markup=keyboards.webapp_inline(settings.public_url))
 
 
 def build_router() -> Router:
@@ -56,5 +59,5 @@ def build_router() -> Router:
     router.message.register(cmd_myid, Command("myid"))
     router.message.register(cmd_add_staff, Command("add_staff"))
     router.message.register(btn_search, F.text == texts.BTN_SEARCH)
-    router.message.register(btn_webapp_fallback, F.text == texts.BTN_WEBAPP)
+    router.message.register(btn_webapp, F.text == texts.BTN_WEBAPP)
     return router

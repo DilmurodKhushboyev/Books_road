@@ -5,6 +5,8 @@ BTN_FIND_PHOTO = "📷 Rasm bilan topish"
 BTN_ADD = "➕ Javonga qo'shish"
 BTN_BROWSE = "🗄 Javonlarni ko'rish"
 BTN_WEBAPP = "🗺 Do'kon xaritasi"
+BTN_OPEN_WEBAPP = "📚 Books Road'ni ochish"
+MENU_BUTTON_TEXT = "Books Road"
 
 WELCOME = (
     "Assalomu alaykum, <b>{name}</b>! 📚 <b>Books Road</b>ga xush kelibsiz.\n\n"
@@ -60,3 +62,4 @@ ADD_STAFF_USAGE = "Foydalanish: <code>/add_staff 123456789</code>"
 MY_ID = "🆔 Sizning Telegram ID: <code>{id}</code>"
 STOCK_UPDATED = "Yangilandi ✅"
 WEBAPP_NOT_CONFIGURED = "WebApp manzili sozlanmagan (WEBAPP_URL)."
+OPEN_WEBAPP = "🗺 Do'kon xaritasi, qidiruv va rasm bilan topish — pastdagi tugmani bosing:"

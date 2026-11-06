@@ -19,8 +19,16 @@ def main_menu(can_edit: bool, webapp_url: str) -> ReplyKeyboardMarkup:
     if can_edit:
         rows[1].append(KeyboardButton(text=texts.BTN_ADD))
     if webapp_url:
-        rows.append([KeyboardButton(text=texts.BTN_WEBAPP, web_app=WebAppInfo(url=webapp_url))])
+        # Reply-tugma orqali ochilgan WebApp initData olmaydi -> oddiy matn, javobida inline tugma
+        rows.append([KeyboardButton(text=texts.BTN_WEBAPP)])
     return ReplyKeyboardMarkup(keyboard=rows, resize_keyboard=True)
+
+
+def webapp_inline(webapp_url: str) -> InlineKeyboardMarkup:
+    """Inline web_app tugma — WebApp'ga foydalanuvchi ma'lumoti (initData) beriladi."""
+    return InlineKeyboardMarkup(inline_keyboard=[[
+        InlineKeyboardButton(text=texts.BTN_OPEN_WEBAPP, web_app=WebAppInfo(url=webapp_url)),
+    ]])
 
 
 def sections(mode: str, sections_view: list[dict]) -> InlineKeyboardMarkup:

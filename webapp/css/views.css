@@ -1,0 +1,116 @@
+/* Sahifalar: bosh sahifa, chat, xarita, qo'shish, yordam */
+.home-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.avatar {
+  width: 48px; height: 48px; border-radius: 50%; overflow: hidden; display: grid; place-items: center;
+  background: var(--grad); color: #fff; font-weight: 800; font-size: 20px; box-shadow: var(--shadow-sm);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.hello { font-size: 20px; font-weight: 600; color: var(--muted); }
+.headline { font-size: 34px; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; margin: 6px 0 22px; }
+#home-ask { margin-bottom: 18px; }
+
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative; z-index: 2; }
+.quick {
+  text-align: left; border: 0; cursor: pointer; padding: 16px; border-radius: var(--r);
+  background: var(--card); box-shadow: var(--shadow-sm); color: var(--text); transition: transform .15s;
+}
+.quick:active { transform: scale(.97); }
+.quick-icon {
+  width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--lilac); color: var(--violet-deep); margin-bottom: 12px;
+}
+.quick h3 { font-size: 15px; font-weight: 800; }
+.quick p { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+.hero { position: relative; height: 210px; margin-top: -10px; pointer-events: none; }
+.hero-orb { position: absolute; width: 170px; left: 8%; top: 30px; opacity: .95; }
+.ring {
+  position: absolute; width: 190px; height: 190px; left: 22%; top: 18px; border-radius: 50%;
+  border: 18px solid transparent; transform: rotate(-28deg) scaleY(.55);
+  background: linear-gradient(var(--bg), var(--bg)) padding-box,
+    linear-gradient(120deg, rgba(255, 255, 255, .9), rgba(167, 139, 250, .7), rgba(147, 197, 253, .6)) border-box;
+  box-shadow: 0 18px 40px rgba(124, 77, 255, .18); opacity: .8;
+}
+
+.screen-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.screen-head h2 { font-size: 18px; font-weight: 800; }
+
+/* Chat */
+.chat { display: flex; flex-direction: column; gap: 14px; padding-bottom: 80px; }
+.msg-user {
+  align-self: flex-end; max-width: 82%; padding: 13px 16px; border-radius: 22px 22px 6px 22px;
+  background: var(--grad); color: #fff; font-weight: 600; box-shadow: var(--shadow-violet);
+}
+.msg-user img { display: block; max-width: 180px; border-radius: 14px; }
+.msg-time { display: block; text-align: right; font-size: 11px; opacity: .75; margin-top: 4px; }
+.msg-bot { display: flex; gap: 8px; align-items: flex-start; max-width: 100%; }
+.msg-bot .mini-orb { margin-top: 4px; width: 26px; height: 26px; }
+.msg-bubble {
+  flex: 1; min-width: 0; padding: 12px; border-radius: 6px 22px 22px 22px;
+  background: var(--card); box-shadow: var(--shadow-sm); font-size: 15px; line-height: 1.45;
+}
+.msg-bubble > p + * { margin-top: 10px; }
+.typing { display: inline-flex; gap: 4px; padding: 4px 0; }
+.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--violet-2); animation: blink 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: .2s; } .typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 50% { opacity: .25; transform: translateY(-3px); } }
+.dock-ask {
+  position: fixed; z-index: 25; left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--nav-h) + var(--safe-bottom) + 22px); width: min(calc(100% - 36px), 444px);
+}
+
+/* Xarita */
+.store-map { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 4px 0 26px; position: relative; }
+.store-map::after {
+  content: "🚪 Kirish"; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  font-size: 12px; font-weight: 700; color: var(--violet-deep); background: var(--lilac); padding: 3px 12px; border-radius: 999px;
+}
+.island { display: flex; flex-direction: column; gap: 8px; }
+.island-name { font-weight: 800; font-size: 13px; text-align: center; color: var(--muted); }
+.island-body { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; border-radius: 18px; background: var(--card-soft); }
+.shelf {
+  aspect-ratio: 1 / .92; border: 0; border-radius: 14px; cursor: pointer; background: var(--card);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  font-size: 13px; font-weight: 800; color: var(--text); box-shadow: var(--shadow-sm); transition: transform .15s;
+}
+.shelf small { font-size: 11px; font-weight: 600; color: var(--muted); }
+.shelf.filled { background: var(--grad); color: #fff; box-shadow: var(--shadow-violet); }
+.shelf.filled small { color: rgba(255, 255, 255, .85); }
+.shelf.highlight { outline: 3px solid var(--pink); outline-offset: 2px; animation: pulse 1s ease-in-out 3; }
+.shelf:active { transform: scale(.94); }
+@keyframes pulse { 50% { transform: scale(1.08); } }
+.legend { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.dot-full { background: var(--violet); } .dot-empty { background: var(--card); border: 1.5px solid var(--muted); }
+.level { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.level:last-child { border-bottom: 0; }
+.level-title { font-weight: 800; font-size: 15px; margin-bottom: 6px; }
+.level-item { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; font-size: 14px; }
+
+/* Qo'shish */
+.field-row { display: flex; gap: 10px; }
+.field-row label { flex: 1; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted); }
+select, .edit-input {
+  width: 100%; padding: 12px; border: 1.5px solid var(--line); border-radius: 14px;
+  background: var(--card-soft); color: var(--text); font-size: 16px; outline: none;
+}
+select:focus, .edit-input:focus { border-color: var(--violet-2); }
+#add-level-hint { margin: 10px 0 14px; }
+.review-item { display: flex; gap: 10px; align-items: flex-start; padding: 12px; margin-bottom: 10px; background: var(--card); border-radius: var(--r); box-shadow: var(--shadow-sm); }
+.review-item.off { opacity: .45; }
+.review-item input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--violet); margin-top: 4px; }
+.review-item .edit-input { padding: 8px 10px; font-size: 15px; margin-bottom: 6px; }
+.review-actions {
+  position: sticky; bottom: calc(var(--nav-h) + var(--safe-bottom) + 20px); display: flex; gap: 10px;
+  padding: 10px; border-radius: 22px; background: var(--card); box-shadow: var(--shadow);
+}
+.review-actions .btn { flex: 1; }
+
+/* Yordam */
+.steps { display: flex; flex-direction: column; gap: 18px; }
+.step { display: flex; gap: 14px; align-items: flex-start; }
+.step b { width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #fff; }
+.step h3 { font-size: 16px; font-weight: 800; }
+.step p { color: var(--muted); font-size: 14px; margin-top: 4px; line-height: 1.4; }
+.empty-note { text-align: center; color: var(--muted); padding: 20px 8px; }

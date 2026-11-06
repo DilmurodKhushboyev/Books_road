@@ -1,0 +1,82 @@
+/* Books Road — asos: ranglar, tipografiya, to'liq ekran xavfsiz zonalari, shisha shar */
+:root {
+  --bg: #f3f1fd; --bg-2: #ebe7fb; --card: #ffffff; --card-soft: #f7f5ff;
+  --line: rgba(124, 92, 246, .10); --text: #17142b; --muted: #8a86a3;
+  --violet: #8b5cf6; --violet-2: #a78bfa; --violet-deep: #6d4ae8; --lilac: #ede9fe;
+  --pink: #f0abfc; --sky: #93c5fd; --ok: #10b981; --bad: #ef4444; --warn: #f59e0b;
+  --grad: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 55%, #7c4dff 100%);
+  --shadow-sm: 0 2px 10px rgba(91, 70, 180, .06);
+  --shadow: 0 10px 30px rgba(91, 70, 180, .10);
+  --shadow-violet: 0 10px 24px rgba(124, 77, 255, .35);
+  --r-lg: 26px; --r: 20px; --r-sm: 14px;
+  /* Telegram to'liq ekran: tizim paneli + Telegram tugmalari zonasi */
+  --safe-top: calc(var(--tg-safe-area-inset-top, 0px) + var(--tg-content-safe-area-inset-top, 0px));
+  --safe-bottom: max(var(--tg-safe-area-inset-bottom, 0px), env(safe-area-inset-bottom, 0px));
+  --nav-h: 76px;
+}
+[data-theme="dark"] {
+  --bg: #120f24; --bg-2: #1a1533; --card: #1f1a3a; --card-soft: #262046;
+  --line: rgba(167, 139, 250, .14); --text: #f1efff; --muted: #9f9ac0; --lilac: #2c2452;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, .25); --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+body {
+  font-family: "Urbanist", -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text); background: var(--bg); min-height: 100vh; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font-family: inherit; }
+h1, h2, h3, p { margin: 0; }
+.hidden { display: none !important; }
+.muted { color: var(--muted); font-size: 14px; }
+
+.bg-glow {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60% 40% at 85% 0%, rgba(167, 139, 250, .28), transparent 70%),
+    radial-gradient(50% 35% at 0% 100%, rgba(147, 197, 253, .25), transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+/* To'liq ekranda: tizim paneli va Telegram tugmalari ostidagi xira qatlam (oddiy rejimda balandligi 0) */
+.top-scrim {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 35; height: var(--safe-top); pointer-events: none;
+  background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.app {
+  max-width: 480px; margin: 0 auto;
+  padding: calc(var(--safe-top) + 14px) 18px calc(var(--nav-h) + var(--safe-bottom) + 28px);
+}
+.view { display: none; animation: rise .3s ease; }
+.view.active { display: block; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* Shisha shar (dizayndagi 3D orb) */
+.orb {
+  position: relative; border-radius: 50%; aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, .95) 0 7%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 72% 68%, rgba(147, 197, 253, .95), transparent 46%),
+    radial-gradient(circle at 30% 74%, rgba(240, 171, 252, .85), transparent 48%),
+    radial-gradient(circle at 50% 50%, #ddd6fe 0%, #a78bfa 55%, #7c4dff 100%);
+  box-shadow:
+    inset -18px -26px 50px rgba(109, 74, 232, .45), inset 16px 18px 36px rgba(255, 255, 255, .7),
+    0 26px 60px rgba(124, 77, 255, .30);
+  animation: float 6s ease-in-out infinite;
+}
+.orb::after {
+  content: ""; position: absolute; inset: 8%; border-radius: 50%;
+  background: conic-gradient(from 200deg, transparent, rgba(255, 255, 255, .55), transparent 40%);
+  filter: blur(6px); mix-blend-mode: soft-light; animation: spin 9s linear infinite;
+}
+.mini-orb {
+  width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fff 0 10%, transparent 30%),
+    radial-gradient(circle at 70% 70%, #93c5fd, transparent 50%),
+    radial-gradient(circle, #c4b5fd, #8b5cf6);
+  box-shadow: inset -4px -6px 10px rgba(109, 74, 232, .4);
+}
+@keyframes float { 50% { transform: translateY(-10px) scale(1.02); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .orb, .orb::after { animation: none; } }
