@@ -95,7 +95,7 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 ### Telegram bot
 | Fayl | Vazifasi |
 |---|---|
-| `app/bot/setup.py` | Dispatcher, middleware'lar, routerlar tartibi |
+| `app/bot/setup.py` | Dispatcher, middleware'lar, routerlar tartibi, Menu tugmasini WebApp'ga sozlash |
 | `app/bot/middlewares.py` | Rate limit + `ctx` (foydalanuvchi konteksti) |
 | `app/bot/webhook.py` | Webhook rejimi (FastAPI orqali) |
 | `app/bot/texts.py` | Bot matnlari va tugma nomlari |
@@ -104,7 +104,7 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 | `app/bot/states.py` | FSM holatlari (AddFlow, FindFlow) |
 | `app/bot/formatters.py` | Natijalarni HTML matnga (hammasi escape qilinadi) |
 | `app/bot/photo_io.py` | Rasmni xavfsiz yuklab olish |
-| `app/bot/handlers/start.py` | /start, /help, /myid, /add_staff |
+| `app/bot/handlers/start.py` | /start, /help, /myid, /add_staff, «🗺 Do'kon xaritasi» → inline WebApp tugma |
 | `app/bot/handlers/browse.py` | Bo'lim → javon → qator navigatsiyasi (ko'rish va qo'shish) |
 | `app/bot/handlers/add_items.py` | Javon rasmi → ko'rib chiqish → tasdiqlash |
 | `app/bot/handlers/find_photo.py` | Rasm bo'yicha topish |
@@ -122,23 +122,33 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 | `app/api/routes_ai.py` | `POST /api/recognitions`, `GET/edit/confirm/cancel /api/recognitions/{id}`, `POST /api/find-by-photo` |
 
 ### WebApp (frontend)
+Dizayn: yumshoq lavanda fon, oq kartochkalar, 3D shisha shar, suzuvchi pastki panel. Mobilda
+**to'liq ekran** (Telegram yuqori paneli yashiriladi), xavfsiz zonalar `--tg-*-safe-area-inset-*` orqali.
+
 | Fayl | Vazifasi |
 |---|---|
-| `webapp/index.html` | Sahifa tuzilmasi (4 tab) |
-| `webapp/css/styles.css` | "Aurora" glassmorphism dizayn, mobil-birinchi, qorong'i rejim |
-| `webapp/js/app.js` | Kirish: Telegram, profil, tablar |
+| `webapp/index.html` | Sahifa tuzilmasi: Bosh sahifa, Aqlli qidiruv (chat), Xarita, Qo'shish (xodim) / Yordam (mijoz) |
+| `webapp/css/base.css` | Ranglar (yorug'/qorong'i), to'liq ekran xavfsiz zonalari, yuqori xira qatlam, shisha shar |
+| `webapp/css/components.css` | Kartochka, tugmalar, so'rov maydoni, pastki panel, oyna, "tinglayapman" yuklovchi, toast |
+| `webapp/css/views.css` | Bosh sahifa, chat pufakchalari, xarita, qo'shish, yordam |
+| `webapp/js/app.js` | Kirish: to'liq ekran, mavzu ranglari, navigatsiya, modullarni ulash |
 | `webapp/js/api.js` | API eshigi (initData header, xatolar) |
-| `webapp/js/ui.js` | DOM yordamchilari (faqat `textContent` — XSS himoyasi), toast, loader |
-| `webapp/js/cards.js` | Mahsulot kartochkasi (qidiruv va rasm natijalari uchun umumiy) |
-| `webapp/js/search.js` | Qidiruv |
+| `webapp/js/ui.js` | DOM yordamchilari (faqat `textContent` — XSS himoyasi), toast, loader, oyna |
+| `webapp/js/icons.js` | SVG ikonkalar (o'zgarmas satrlar) |
+| `webapp/js/home.js` | Avatar, salomlashish, rol belgisi, tezkor kartochkalar |
+| `webapp/js/chat.js` | Aqlli qidiruv: nom bo'yicha qidiruv va rasm bo'yicha topish natijalari suhbat ko'rinishida |
+| `webapp/js/cards.js` | Mahsulot kartochkasi (joylashuv, qoldiq tugmalari, "Xaritada") |
 | `webapp/js/map.js` | Xarita va javon oynasi |
-| `webapp/js/photo_find.js` | Rasm bo'yicha topish |
 | `webapp/js/add.js` | Javonga qo'shish (xodim) |
+
+**WebApp qanday ochiladi:** chatdagi **Menu** tugmasi (bot ishga tushganda avtomatik sozlanadi) yoki
+«🗺 Do'kon xaritasi» → inline tugma. Reply-klaviatura `web_app` tugmasi ishlatilmaydi: u orqali
+ochilgan WebApp `initData` olmaydi.
 
 ### Bot ⇄ WebApp sinxronligi (10-qoida)
 | Amal | Servis funksiyasi | Bot handler | WebApp API |
 |---|---|---|---|
-| Qidiruv | `search_service.search_items` | `search.on_text_search` | `GET /api/search` |
+| Qidiruv | `search_service.search_items` | `search.on_text_search` | `GET /api/search` (chat.js) |
 | Rasm bilan topish | `visual_match_service.find_by_photo` | `find_photo.on_find_photo` | `POST /api/find-by-photo` |
 | Javon ko'rish | `shelf_service.shelf_contents` | `browse._show_level` | `GET /api/shelves/{id}` |
 | Rasm → ro'yxat | `recognition_service.recognize_shelf_photo` | `add_items.on_shelf_photo` | `POST /api/recognitions` |
@@ -149,7 +159,7 @@ Turlar: kitob, attorlik, joynamoz, kanselyariya, sovg'a, boshqa (`app/constants.
 
 ### Testlar (`tests/`)
 `test_text_normalize`, `test_auth`, `test_ai_parsing`, `test_layout_and_search`,
-`test_recognition_and_stock`, `test_visual_and_misc`, `test_api`, `test_bot_flow`, `test_config` — 49 ta test.
+`test_recognition_and_stock`, `test_visual_and_misc`, `test_api`, `test_bot_flow`, `test_config` — 50 ta test.
 
 ---
 

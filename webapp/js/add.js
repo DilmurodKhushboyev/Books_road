@@ -28,13 +28,13 @@ function reviewRow(item) {
   const include = el("input", { type: "checkbox", checked: item.include, dataset: { field: "include" } });
   const thumb = item.thumb && item.thumb.startsWith(DATA_IMAGE_PREFIX)
     ? el("img", { class: "item-thumb", src: item.thumb, alt: "" }) : null;
-  const row = el("div", { class: `glass review-item${item.include ? "" : " off"}`, dataset: { index: item.index } },
+  const row = el("div", { class: `review-item${item.include ? "" : " off"}`, dataset: { index: item.index } },
     include, thumb,
     el("div", { class: "item-body" },
       el("input", { class: "edit-input", value: item.title, maxlength: 255, dataset: { field: "title" }, "aria-label": "Nomi" }),
       el("input", { class: "edit-input", value: item.author, maxlength: 255, placeholder: "Muallif / brend", dataset: { field: "author" } }),
       el("input", { class: "edit-input", type: "number", min: 1, max: 9999, value: item.quantity, dataset: { field: "quantity" }, "aria-label": "Soni" }),
-      el("span", { class: "badge ok", text: item.kind_label }),
+      el("span", { class: "badge kind", text: item.kind_label }),
       item.low_confidence ? el("span", { class: "badge warn", text: `⚠️ ishonch ${percent(item.confidence)} — tekshiring` }) : null));
   include.addEventListener("change", () => row.classList.toggle("off", !include.checked));
   return row;
@@ -80,15 +80,15 @@ async function finish(batchId, action, container) {
 function renderReview(batch) {
   const container = document.getElementById("add-review");
   if (!batch.items.length) {
-    container.replaceChildren(el("div", { class: "glass empty", text: "🤷 Rasmda hech narsa aniqlanmadi. Yaqinroqdan qayta suring." }));
+    container.replaceChildren(el("div", { class: "card empty-note", text: "🤷 Rasmda hech narsa aniqlanmadi. Yaqinroqdan qayta suring." }));
     return;
   }
   container.replaceChildren(
-    el("div", { class: "glass card" },
-      el("div", { class: "card-title", text: `🧾 AI ${batch.items.length} ta narsa topdi` }),
+    el("div", { class: "card" },
+      el("h2", { class: "sheet-title", text: `🧾 AI ${batch.items.length} ta narsa topdi` }),
       el("div", { class: "muted", text: `O'rtacha ishonch ${percent(batch.avg_confidence)}. ⚠️ belgililarni tekshiring, nomini tuzating.` })),
     el("div", { class: "list" }, ...batch.items.map(reviewRow)),
-    el("div", { class: "glass review-actions" },
+    el("div", { class: "review-actions" },
       el("button", { class: "btn ghost", text: "❌ Bekor", onclick: () => finish(batch.batch_id, "cancel", container) }),
       el("button", { class: "btn primary", text: "💾 Tasdiqlash", onclick: () => finish(batch.batch_id, "confirm", container) })));
 }

@@ -88,3 +88,12 @@ async def test_owner_navigates_to_photo_request(db):
     await dp.feed_update(bot, _callback_update(777, NavCb(mode=MODE_ADD, step="pick", section_id=1,
                                                            shelf_id=3, level=5).pack()))
     assert "A3 javon (old tomon) → 5-qator" in _texts(session)[-1]
+
+
+async def test_webapp_button_sends_inline_web_app(db):
+    """Reply-tugmada initData kelmaydi, shuning uchun bot inline web_app tugma yuboradi."""
+    bot, dp, session = _setup()
+    await dp.feed_update(bot, _text_update(100, "🗺 Do'kon xaritasi"))
+    sent = [r for r in session.requests if isinstance(r, SendMessage)][-1]
+    button = sent.reply_markup.inline_keyboard[0][0]
+    assert button.web_app.url == "https://example.org"
