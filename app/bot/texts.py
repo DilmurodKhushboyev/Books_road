@@ -1,0 +1,62 @@
+"""Bot matnlari (o'zbekcha). Xato xabarlari — app/texts.py da (WebApp bilan umumiy)."""
+
+BTN_SEARCH = "🔎 Qidirish"
+BTN_FIND_PHOTO = "📷 Rasm bilan topish"
+BTN_ADD = "➕ Javonga qo'shish"
+BTN_BROWSE = "🗄 Javonlarni ko'rish"
+BTN_WEBAPP = "🗺 Do'kon xaritasi"
+
+WELCOME = (
+    "Assalomu alaykum, <b>{name}</b>! 📚 <b>Books Road</b>ga xush kelibsiz.\n\n"
+    "Kitob (yoki atir, joynamoz...) nomini yozing — qaysi bo'lim, qaysi javon, "
+    "qaysi qatorda turganini yoki qolmaganini aytaman.\n\n"
+    "📷 Narsaning rasmini yuborsangiz — ko'rinishidan topib beraman."
+)
+WELCOME_STAFF = "\n\n👷 Siz xodimsiz: «{add}» orqali javon rasmini yuklab, narsalarni bazaga kiritasiz."
+HELP = (
+    "<b>Qanday ishlatiladi:</b>\n"
+    "• Nom yozing → joylashuvi va qoldig'i.\n"
+    "• Rasm yuboring → ko'rinishi bo'yicha qidirish.\n"
+    "• «{add}» → bo'lim → javon → qator → javon rasmi → tasdiqlash.\n"
+    "• /myid — Telegram ID ingiz.\n"
+    "• /add_staff &lt;ID&gt; — xodim qo'shish (faqat do'kon egasi)."
+)
+ASK_QUERY = "🔎 Kitob yoki narsa nomini yozing:"
+ASK_FIND_PHOTO = "📷 Topmoqchi bo'lgan narsangiz rasmini yuboring (muqovasi aniq ko'rinsin)."
+SEARCHING = "⏳ Qidiryapman..."
+NOT_FOUND = "😔 «{query}» bo'yicha hech narsa topilmadi.\nBoshqacha yozib ko'ring yoki rasm yuboring."
+RESULTS_HEADER = "🔎 «{query}» bo'yicha natijalar:"
+IN_STOCK = "✅ Bor: {qty} dona"
+OUT_OF_STOCK = "❌ Qolmagan"
+NO_PLACEMENT = "📍 Javonga joylashtirilmagan"
+
+CHOOSE_SECTION = "🏬 Bo'limni tanlang:"
+CHOOSE_SHELF = "🗄 <b>{section}</b> — javonni tanlang:\n⬆️ old tomon (1-5), ⬇️ orqa tomon (6-10)"
+CHOOSE_LEVEL = "📏 <b>{shelf}</b> javon — qatorni tanlang ({hint}):"
+SEND_SHELF_PHOTO = (
+    "📸 <b>{location}</b>\n\nShu qatorning rasmini yuboring. Kitob nomlari o'qiladigan "
+    "darajada yaqin va tiniq bo'lsin."
+)
+ANALYZING = "🤖 AI rasmni tahlil qilyapti... (10-30 soniya)"
+ANALYZING_FIND = "🤖 Rasmni tahlil qilib, bazadan qidiryapman..."
+NOTHING_DETECTED = "🤷 Rasmda hech narsa aniqlanmadi. Yaqinroqdan, yorug'roq joyda qayta suring."
+REVIEW_HEADER = (
+    "🧾 <b>{location}</b>\nAI {count} ta narsa topdi (o'rtacha ishonch {avg}%).\n"
+    "⚠️ — ishonch past, tekshiring. Raqamni bosib yoqing/o'chiring.\n"
+    "✏️ Nomni tuzatish: <code>3: To'g'ri nom | Muallif</code>\n"
+)
+CONFIRMED = "✅ Saqlandi: {saved} ta. O'tkazib yuborildi: {skipped} ta.\n📍 {location}"
+CANCELLED = "❌ Bekor qilindi."
+EDIT_FORMAT = "Format: <code>raqam: nom | muallif</code> (masalan <code>2: O'tgan kunlar | A. Qodiriy</code>)"
+EDIT_DONE = "✏️ {index}-element yangilandi."
+PHOTO_RECOGNIZED_AS = "👁 AI ko'rdi: <b>{title}</b>{author} (ishonch {conf}%)"
+PHOTO_NOT_RECOGNIZED = "🤷 Rasmdagi narsani aniqlay olmadim. Muqovani yaqinroqdan, tiniq suring."
+PHOTO_UNSURE = "⚠️ Aniq emas — eng o'xshash variantlar:"
+PHOTO_NO_MATCH = "😔 Bazada bunga o'xshash narsa topilmadi."
+SHELF_EMPTY = "📭 Bu qatorda hali hech narsa yo'q."
+STAFF_ADDED = "✅ Foydalanuvchi xodim qilindi."
+STAFF_NOT_FOUND = "Bu ID li foydalanuvchi topilmadi. U avval botga /start bosishi kerak."
+ADD_STAFF_USAGE = "Foydalanish: <code>/add_staff 123456789</code>"
+MY_ID = "🆔 Sizning Telegram ID: <code>{id}</code>"
+STOCK_UPDATED = "Yangilandi ✅"
+WEBAPP_NOT_CONFIGURED = "WebApp manzili sozlanmagan (WEBAPP_URL)."
