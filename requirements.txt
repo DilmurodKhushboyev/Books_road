@@ -1,0 +1,18 @@
+# Bot
+aiogram==3.31.0
+# WebApp API
+fastapi==0.162.0
+uvicorn==0.54.0
+python-multipart==0.0.32
+# Database + migrations
+SQLAlchemy==2.1.8
+greenlet==3.5.6
+asyncpg==0.32.0
+aiosqlite==0.22.1
+alembic==1.20.1
+# Config, HTTP, images, fuzzy search
+pydantic==2.13.5
+pydantic-settings==2.16.2
+httpx==0.28.1
+pillow==12.3.0
+RapidFuzz==3.14.6
